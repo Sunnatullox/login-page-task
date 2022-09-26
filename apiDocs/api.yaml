@@ -1,0 +1,256 @@
+openapi: 3.0.3
+info:
+  title: Login Test .
+  license:
+    name: Apache 2.0
+    url: "http://apache.org/"
+  version: 1.0.11
+servers:
+  - url: https://login-tests-api.herokuapp.com//
+    description: Https Hosting Heroku
+  - url: http://localhost:5000
+    description: Dev Server on Port
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
+
+paths:
+  /api/auth/signUp:
+    post:
+      summary: Creates a Users
+      tags:
+        - Register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                fullName:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                countryCode:
+                  type: number
+                telNumber:
+                  type: number
+              example:
+                name: Sunna
+                fullName:  Sunnatullox
+                email: sunnatulloxsunnatullox08@gmail.com
+                password: Sunna123
+                countryCode: 998
+                telNumber: 993790720
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  password:
+                    type: string
+                  fullName:
+                    type: string
+                  telNumber:
+                    type: number
+                  countryCode:
+                    type: number
+                example:
+                  msg: You have successfully registered
+        401:
+          description: Sorry, this email has already been registered
+        404:
+          description: Please some line was not filled try again
+        407:
+          description: Sorry, don't mix letters or characters in your phone number
+        409:
+          description: Sorry, there was an error during registration
+        422:
+          description: Sorry, your password must be at least 4 characters long, at least 1 uppercase and lowercase letter and 1 number!
+        500:
+          description: Internal Server Error
+
+  /api/auth/signIn:
+    post:
+      summary: Creates a Users
+      tags:
+        - Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              example:
+                email: sunnatulloxsunnatullox08@gmail.com
+                password: Sunna1234
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  password:
+                    type: string
+                  fullName:
+                    type: string
+                  telNumber:
+                    type: number
+                  countryCode:
+                    type: number
+                example:
+                  _id: 62ae948249ef0d92e405b22b
+                  name: Sunna
+                  fullName: Sunnatullox
+                  email: SunnatulloxSunnatullox83@gmail.com
+                  password: Sunna12345
+                  countryCode: 998
+                  telNumber: 993790720
+        404:
+          description: Sorry, your password is wrong, please try again
+        403:
+          description: Sorry, no one has registered with this email
+        500:
+          description: Internal Server Error
+
+  /forgot/checkEmail:
+    post:
+      summary: Creates a Users
+      tags:
+        - Forgot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+              example:
+                email: sunnatulloxsunnatullox08@gmail.com
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                example:
+                  msg: "your email successfully sended secret code"
+        404:
+          description: Sorry, this email is not registered
+        500:
+          description: Internal Server Error
+
+
+  /forgot/emailCodeCheck:
+    post:
+      summary: Creates a Users
+      tags:
+        - Forgot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+              example:
+                code: 23dfg4f
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                example:
+                  code: "Sucessfully"
+        403:
+          description: sorry code is wrong
+        404:
+          description: Not Found code
+        500:
+          description: Internal Server Error
+  /forgot/passUpdate:
+    put:
+      summary: Creates a Users
+      tags:
+        - Forgot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                confirmPassword:
+                  type: string
+              example:
+                password: Sunnatullox12
+                confirmPassword: Sunnatullox12
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                example:
+                  msg: "password successfuly update"
+        404:
+          description: Not Found text
+        403:
+          description: Sorry, your new password does not match, please think of a new password
+        422:
+          description: Sorry, your password must be at least 4 characters long, at least 1 uppercase and lowercase letter and 1 number!
+        500:
+          description: Internal Server Error
+
+
+
+
+
+

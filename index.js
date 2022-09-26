@@ -22,7 +22,7 @@ const Yaml = require("yamljs")
 const SwaggerDoc  = Yaml.load("./apiDocs/api.yaml")
 app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(SwaggerDoc))
 
-require("./models/Users");
+require("./models/users");
 
 
 app.use("/api/auth",require("./routes/auth"));

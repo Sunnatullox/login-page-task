@@ -6,7 +6,7 @@ info:
     url: "http://apache.org/"
   version: 1.0.11
 servers:
-  - url: https://login-tests-api.herokuapp.com//
+  - url: https://login-task-api.herokuapp.com/
     description: Https Hosting Heroku
   - url: http://localhost:5000
     description: Dev Server on Port
